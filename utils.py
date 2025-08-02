@@ -19,7 +19,7 @@ APP_NAME = 'TO Neighborhood Risk Predictor'
 ABOUT_HEADER = 'About'
 NEIGHBORHOOD_HEADER = "Neighborhood Risk Exploration"
 OVERVIEW_HEADER = 'Risk Overview'
-PREDICTON_HEADER = 'Neighborhood Risk Prediction'
+PREDICTON_HEADER = 'Neighborhood Crime Risk Prediction'
 APP_FILTERS = 'Filters'
 NO_DATA_INFO = 'No data available to display based on the filters'
 
