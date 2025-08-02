@@ -9,16 +9,21 @@ import warnings
 import random
 #import plotly.express as px
 #import plotly.graph_objects as go
+#import geopandas as gpd
+#import folium
+#from streamlit_folium import st_folium
+
+import pickle
+#from pycaret.classification import *
+import datetime
 
 """
-Dashboard Information
+App Information
 """
-
-
-APP_NAME = 'TO Neighborhood Risk Predictor'
+APP_NAME = 'TO Crime Risk & Wellbeing Insights'
 ABOUT_HEADER = 'About'
-NEIGHBORHOOD_HEADER = "Neighborhood Risk Exploration"
-OVERVIEW_HEADER = 'Risk Overview'
+NEIGHBORHOOD_HEADER = "Neighborhood Crime Risk & Wellbeing"
+OVERVIEW_HEADER = 'Overview'
 PREDICTON_HEADER = 'Neighborhood Crime Risk Prediction'
 APP_FILTERS = 'Filters'
 NO_DATA_INFO = 'No data available to display based on the filters'
@@ -26,10 +31,10 @@ NO_DATA_INFO = 'No data available to display based on the filters'
 warnings.simplefilter(action='ignore', category=FutureWarning)
 st.set_page_config(
     page_title=APP_NAME,
-    page_icon="🌍",
     layout="wide"
 )
 
 """
-Load data
+Data
 """
+
