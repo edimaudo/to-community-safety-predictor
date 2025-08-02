@@ -1,8 +1,11 @@
-# TO Community Risk Predictor
+# TO Neighborhood Risk Predictor
 
-A simple Streamlit app template for you to modify!
-
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+Focusing on the theme - *Build with agentic AI challenge*, this project analyzes crime risk and wellbeing data in Toronto's neighborhoods.  
+It also enables the user to predict crime risk and using the data provide proactive steps for people to take. 
+It is built using [streamlit](https://streamlit.io/cloud) and [IBM Watson x](https://www.ibm.com/products/watsonx).  
+The data is from [Toronto Police](https://data.torontopolice.on.ca/datasets/TorontoPS::major-crime-indicators-open-data/about) and [City of Toronto](https://data.urbandatacentre.ca/organization/city-of-toronto-open-data?q=wellbeing&sort=score+desc%2C+metadata_modified+desc&page=1).
+    
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://to-community-safety-predictor.streamlit.app/)
 
 ### How to run it on your own machine
 
@@ -15,5 +18,5 @@ A simple Streamlit app template for you to modify!
 2. Run the app
 
    ```
-   $ streamlit run streamlit_app.py
+   $ streamlit run app.py
    ```
