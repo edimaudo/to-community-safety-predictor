@@ -1,4 +1,4 @@
-# TO Neighborhood Risk Predictor
+# TO Crime & Wellbeing Insights
 
  Focusing on the theme - *Build with agentic AI challenge*, this project analyzes crime risk and wellbeing data in Toronto's neighborhoods.  
 It also enables the user to predict crime risk.  Furthermore, it will leverage the predicted data and provide relevant information that people can take to stay safe. 
