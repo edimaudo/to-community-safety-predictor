@@ -34,6 +34,10 @@ st.set_page_config(
     layout="wide"
 )
 
+
+wellbeing_link = "https://data.urbandatacentre.ca/organization/city-of-toronto-open-data?q=wellbeing&sort=score+desc%2C+metadata_modified+desc&page=3"
+
+
 """
 Data
 """
