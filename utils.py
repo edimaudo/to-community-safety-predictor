@@ -64,7 +64,7 @@ wellbeing_housing =  load_data("data/wellbeing-housing.xlsx")
 wellbeing_recreation =  load_data("data/wellbeing-recreation.xlsx")
 
 # neighborhood
-neighborhood = load_geojson("data/Neighbourhoods.geojson")
+neighborhood = load_geojson("data/Neighbourhoods.geojson") #gpd.read_file('data/Neighbourhoods.geojson')
 neighborhood_improvement+area = load_data("data/neighbourhood-improvement-areas.xlsx")
 
 # Data Information
