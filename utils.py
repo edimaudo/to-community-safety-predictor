@@ -41,7 +41,31 @@ wellbeing_link = "https://data.urbandatacentre.ca/organization/city-of-toronto-o
 """
 Data
 """
+# Load data
+@st.cache_data
+def load_data(DATA_URL):
+    data = pd.read_excel(DATA_URL)
+    return data
 
+def load_geojson(DATA_URL):
+    data = pd.read_json(DATA_URL)
+    return data
+
+# crime risk data
+df = load_data("data/Major_Crime_Indicators_Open_Data.xlsx")
+
+# wellbeing data
+wellbeing_culture = load_data("data/wellbeing-toronto-culture.xlsx")
+wellbeing_economics = load_data("data/wellbeing-toronto-economics.xlsx")
+wellbeing_environment = load_data("data/wellbeing-toronto-environment.xlsx")
+wellbeing_health = load_data("data/wellbeing-toronto-health.xlsx")
+wellbeing_transportation = load_data("data/wellbeing-toronto-transportation.xlsx")
+wellbeing_housing =  load_data("data/wellbeing-housing.xlsx")
+wellbeing_recreation =  load_data("data/wellbeing-recreation.xlsx")
+
+# neighborhood
+neighborhood = load_geojson("data/Neighbourhoods.geojson")
+neighborhood_improvement+area = load_data("data/neighbourhood-improvement-areas.xlsx")
 
 month_dict = {'January':1,'February':2,'March':3, 'April':4, 'May':5, 'June':6, 'July':7, 
 'August':8, 'September':9, 'October':10, 'November':11, 'December':12}
