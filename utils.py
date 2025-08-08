@@ -16,6 +16,7 @@ import pickle
 from pycaret.classification import *
 import datetime
 import time
+import numpy as np
 
 """
 App Information
