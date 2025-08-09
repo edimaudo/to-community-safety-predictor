@@ -19,7 +19,7 @@ def load_data(DATA_URL,DATA_TYPE):
 
 # crime risk data
 df = load_data("data/Major_Crime_Indicators_Open_Data.xlsx",'xlsx')
-df_filtered = df[(df['OCC_YEAR'] >= 2014) & (df['OCC_YEAR'] <= 2025)]
+df_filtered = df[(df['OCC_YEAR'] >= 2014) & (df['OCC_YEAR'] < 2025)]
 
 # wellbeing data
 wellbeing_culture = load_data("data/wellbeing-toronto-culture.xlsx",'xlsx')
