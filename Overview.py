@@ -5,11 +5,11 @@ st.title(APP_NAME)
 st.header(OVERVIEW_HEADER)
 
 st.write("""
-         Highlights wellness and crime risk trends in the City of Toronto.  
+         Highlighs Socio-economic Metrics and Crime Risk trends in the City of Toronto.  
          """)
 
 
-tab1, tab2 = st.tabs(["Wellbeing Metrics", "Crime Risk Trends"])
+tab1, tab2 = st.tabs(["Socio-Ecomonic Metrics", "Crime Risk Trends"])
 
 with tab1:
     st.subheader("")
@@ -49,11 +49,16 @@ with tab2:
         fig = px.line(crimes_data, x="Day of Week", y="Total",color='MCI CATEGORY')
         st.plotly_chart(fig)
 
+        st.subheader("MCI Category Mix")
+        crimes_data = df_filtered[['MCI_CATEGORY']]
+        crimes_data = crimes_data.groupby(['MCI_CATEGORY']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
+        crimes_data.columns = ['MCI CATEGORY','Total']   
 
-
-
-
-    
+        fig = px.pie(values = crimes_data['Total'],
+                    names = crimes_data['MCI CATEGORY'],
+                    color = crimes_data['MCI CATEGORY'],
+                    hole = 0.5)
+        st.plotly_chart(fig)
 
     with col2:
         st.subheader("Crime Category by Year")
@@ -72,10 +77,27 @@ with tab2:
         fig = px.line(crimes_data, x="Day", y="Total",color='MCI CATEGORY')
         st.plotly_chart(fig)
 
-        st.subheader("Crime Category by by Hour")
+        st.subheader("Crime Category by Hour")
         crimes_data = df_filtered[['MCI_CATEGORY','OCC_HOUR']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_HOUR']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'Hour','Total']
         crimes_data.sort_values("Hour", ascending=True)
         fig = px.line(crimes_data, x="Hour", y="Total",color='MCI CATEGORY')
+        st.plotly_chart(fig)
+
+        st.subheader("Crime Category by Premise Type")
+        crimes_data = df_filtered[['MCI_CATEGORY','PREMISES_TYPE']]
+        crimes_data = crimes_data.groupby(['MCI_CATEGORY','PREMISES_TYPE']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
+        crimes_data.columns = ['MCI CATEGORY', 'PREMISES TYPE','Total']
+        # Pivot so MCI_CATEGORY is columns, PREMISES_TYPE is rows
+        matrix = crimes_data.pivot(index='PREMISES TYPE', columns='MCI CATEGORY', values='Total').fillna(0)
+
+        fig = px.imshow(
+            matrix.values,                      # the numeric matrix
+            x=matrix.columns,                    # categories on x-axis
+            y=matrix.index,                      # premises on y-axis
+            color_continuous_scale='Viridis'
+        )
+
+        fig.update_layout(width=500, height=500)
         st.plotly_chart(fig)
