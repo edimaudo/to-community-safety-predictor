@@ -49,14 +49,14 @@ model_info.reset_index(drop=True, inplace=True)
 neighbourhood = model_info['Neighborhood_cat'][0]
 
 if clicked:
-    st.subheader("Prediction")
+    #st.subheader("Prediction")
     info_df = pd.DataFrame(columns = ['OCC_MONTH_cat','OCC_DOW_cat','OCC_HOUR','PREMISES_TYPE_cat','Neighborhood_cat'],index = ['a'])
     info_df.loc['a'] = [month,dow,hour, premise, neighbourhood]
     # Load model
     saved_final_model = load_model('model/Final Model')
     # Prediction
     new_prediction = predict_model(saved_final_model, data=info_df)
-    crime_category = new_prediction['Label'][0]
+    crime_category = new_prediction['prediction_label'][0]
     if crime_category == 0:
         crime_output = 'Assault'
     elif crime_category == 1:
@@ -67,12 +67,11 @@ if clicked:
         crime_output = 'Robbery'
     else:
         crime_output = 'Theft Over'
+    st.metric("The Predicted Crime Category is : ",crime_output)
+    st.subheader("Community Risk Insights + Actions")
+    
+    st.write("Based on the crime category: " + crime_output + ' here are some safety recommendations for the community')
+    ## Add LLM here 
 
-    st.write("Based on the your selection")
-    st.metric("The Predicted Crime Categroy is : ",crime_output)
 
 
-
-
-st.subheader("Community Risk Insights + Actions")
-## Add LLM here
