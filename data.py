@@ -50,7 +50,7 @@ month_dict = {
 }
 
 MONTH = (
-    pd.DataFrame({'Month': df['OCC_MONTH'].dropna().unique()})  # remove NaN here
+    pd.DataFrame({'Month': df_filtered['OCC_MONTH'].dropna().unique()})  # remove NaN here
     .assign(order=lambda d: d['Month'].str.strip().map(month_dict))
     .dropna(subset=['order'])  # also removes anything not in month_dict
     .sort_values('order')
@@ -64,7 +64,7 @@ dow_dict = {
 }
 
 DAY_OF_WEEK = (
-    pd.Series(df['OCC_DOW'].dropna().unique())
+    pd.Series(df_filtered['OCC_DOW'].dropna().unique())
       .str.strip()                      # remove extra spaces
       .str.title()                      # normalize capitalization
       .drop_duplicates()
@@ -73,23 +73,23 @@ DAY_OF_WEEK = (
 )
 
 
-HOUR=  df['OCC_HOUR'].unique()
+HOUR=  df_filtered['OCC_HOUR'].unique()
 HOUR  = HOUR.astype('int')
 HOUR.sort()
 
-DAY =  df['OCC_DAY'].unique()
+DAY =  df_filtered['OCC_DAY'].unique()
 DAY  = DAY.astype('int')
 DAY.sort()
 
-MCI_CATEGORY = df['MCI_CATEGORY'].unique()
+MCI_CATEGORY = df_filtered['MCI_CATEGORY'].unique()
 MCI_CATEGORY  = MCI_CATEGORY.astype('str')
 MCI_CATEGORY.sort()
 
-NEIGHBORHOOD = df['NEIGHBOURHOOD_158'].unique()
+NEIGHBORHOOD = df_filtered['Neigborhood'].unique()
 NEIGHBORHOOD = NEIGHBORHOOD.astype('str')
 NEIGHBORHOOD.sort()
 
-PREMISES_TYPE = df['PREMISES_TYPE'].unique()
+PREMISES_TYPE = df_filtered['PREMISES_TYPE'].unique()
 PREMISES_TYPE  = PREMISES_TYPE.astype('str')
 PREMISES_TYPE.sort()
 
