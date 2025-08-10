@@ -85,7 +85,7 @@ MCI_CATEGORY = df_filtered['MCI_CATEGORY'].unique()
 MCI_CATEGORY  = MCI_CATEGORY.astype('str')
 MCI_CATEGORY.sort()
 
-NEIGHBORHOOD = df_filtered['Neigborhood'].unique()
+NEIGHBORHOOD = df_filtered['Neighborhood'].unique()
 NEIGHBORHOOD = NEIGHBORHOOD.astype('str')
 NEIGHBORHOOD.sort()
 
