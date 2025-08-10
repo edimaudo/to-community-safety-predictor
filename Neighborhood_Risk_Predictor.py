@@ -15,17 +15,17 @@ with st.sidebar:
 
 
 # Model information
-model_data = df_filtered[['OCC_MONTH','OCC_DOW','OCC_HOUR','PREMISES_TYPE','NEIGHBOURHOOD_158','MCI_CATEGORY']]
-    # Categorize data
+model_data = df_filtered[['OCC_MONTH','OCC_DOW','OCC_HOUR','PREMISES_TYPE','Neighborhood','MCI_CATEGORY']]
+# Categorize data
 model_data["OCC_MONTH"] = model_data["OCC_MONTH"].astype('category')
 model_data["OCC_DOW"] = model_data["OCC_DOW"].astype('category')
 model_data["PREMISES_TYPE"] = model_data["PREMISES_TYPE"].astype('category')
-model_data["NEIGHBOURHOOD_158"] = model_data["NEIGHBOURHOOD_158"].astype('category')
+model_data["Neighborhood"] = model_data["Neighborhood"].astype('category')
 model_data["MCI_CATEGORY"] = model_data["MCI_CATEGORY"].astype('category')
 model_data["OCC_MONTH_cat"] = model_data["OCC_MONTH"].cat.codes
 model_data["OCC_DOW_cat"] = model_data["OCC_DOW"].cat.codes
 model_data["PREMISES_TYPE_cat"] = model_data["PREMISES_TYPE"].cat.codes
-model_data["NEIGHBOURHOOD_158_cat"] = model_data["NEIGHBOURHOOD_158"].cat.codes
+model_data["Neighborhood_cat"] = model_data["Neighborhood"].cat.codes
 model_data["MCI_CATEGORY_cat"] = model_data["MCI_CATEGORY"].cat.codes
 
 model_info = model_data[(model_data.OCC_MONTH == month_options)]
@@ -44,13 +44,13 @@ model_info = model_data[(model_data.PREMISES_TYPE == premises_options)]
 model_info.reset_index(drop=True, inplace=True)
 premise = model_info['PREMISES_TYPE_cat'][0]
 
-model_info = model_data[(model_data.NEIGHBOURHOOD_158 == neighbourhood_options)]
+model_info = model_data[(model_data.Neighborhood == neighbourhood_options)]
 model_info.reset_index(drop=True, inplace=True)
-neighbourhood = model_info['NEIGHBOURHOOD_158_cat'][0]
+neighbourhood = model_info['Neighborhood_cat'][0]
 
 if clicked:
     st.subheader("Prediction")
-    info_df = pd.DataFrame(columns = ['OCC_MONTH_cat','OCC_DOW_cat','OCC_HOUR','PREMISES_TYPE_cat','NEIGHBOURHOOD_158_cat'],index = ['a'])
+    info_df = pd.DataFrame(columns = ['OCC_MONTH_cat','OCC_DOW_cat','OCC_HOUR','PREMISES_TYPE_cat','Neighborhood_cat'],index = ['a'])
     info_df.loc['a'] = [month,dow,hour, premise, neighbourhood]
     # Load model
     saved_final_lightgbm = load_model('model/Final lightgbm')
