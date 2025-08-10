@@ -5,7 +5,7 @@ st.title(APP_NAME)
 st.header(OVERVIEW_HEADER)
 
 st.write("""
-         Highlighs Socio-economic Metrics and Crime Risk trends in the City of Toronto.  
+         Highlights Socio-economic Metrics and Crime Risk trends in the City of Toronto.  
          """)
 
 
