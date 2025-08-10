@@ -24,8 +24,8 @@ App Information
 """
 APP_NAME = 'TO Crime Risk & Wellbeing Insights'
 ABOUT_HEADER = 'About'
-NEIGHBORHOOD_HEADER = "Neighborhood Crime Risk & Wellbeing"
-OVERVIEW_HEADER = 'Crime Risk & Wellbeing Overview'
+NEIGHBORHOOD_HEADER = "Neighborhood Crime Risk & Socio-economic Profile"
+OVERVIEW_HEADER = 'Crime Risk & Socio-economic Overview'
 PREDICTON_HEADER = 'Neighborhood Crime Risk Prediction'
 APP_FILTERS = 'Filters'
 NO_DATA_INFO = 'No data available to display based on the filters'
