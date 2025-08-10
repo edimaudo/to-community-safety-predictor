@@ -17,7 +17,7 @@ from pycaret.classification import *
 import datetime
 import time
 import numpy as np
-
+import statistics
 
 """
 App Information
