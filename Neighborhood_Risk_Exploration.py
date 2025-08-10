@@ -44,9 +44,10 @@ with tab2:
         premises_options = st.multiselect('Premises Type',PREMISES_TYPE,default=PREMISES_TYPE) 
     with st.container():
         col1, col2, col3 = st.columns(3)
+        neighorhood_df = df_filtered[(df_filtered['OCC_YEAR'].isin(year_options)) & (df_filtered['OCC_MONTH'].isin(month_options)) & (df_filtered['OCC_DOW'].isin(dow_options)) & (df_filtered['MCI_CATEGORY'].isin(mci_options)) & (df_filtered['PREMISES_TYPE'].isin(premises_options)) & (df_filtered['Neighborhood'] == neighourhood_options)]
         with col1:
             st.subheader("Total Crime by Year")
-            crimes_data = df_filtered[['MCI_CATEGORY','OCC_YEAR']]
+            crimes_data = neighorhood_df[['MCI_CATEGORY','OCC_YEAR']]
             crimes_data = crimes_data.groupby(['OCC_YEAR']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
             crimes_data.columns = ['Year','Total']
             crimes_data.sort_values("Year", ascending=True)
@@ -54,7 +55,7 @@ with tab2:
             st.plotly_chart(fig)
         with col2:
             st.subheader("Crime Category by Year")
-            crimes_data = df_filtered[['MCI_CATEGORY','OCC_YEAR']]
+            crimes_data = neighorhood_df[['MCI_CATEGORY','OCC_YEAR']]
             crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_YEAR']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
             crimes_data.columns = ['MCI CATEGORY', 'Year','Total']
             crimes_data.sort_values("Year", ascending=True)
@@ -62,7 +63,7 @@ with tab2:
             st.plotly_chart(fig)
         with col3:
             st.subheader("MCI Category Mix")
-            crimes_data = df_filtered[['MCI_CATEGORY']]
+            crimes_data = neighorhood_df[['MCI_CATEGORY']]
             crimes_data = crimes_data.groupby(['MCI_CATEGORY']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
             crimes_data.columns = ['MCI CATEGORY','Total']   
 
@@ -76,7 +77,7 @@ with tab2:
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Crime Category by Month")
-        crimes_data = df_filtered[['MCI_CATEGORY','OCC_MONTH']]
+        crimes_data = neighorhood_df[['MCI_CATEGORY','OCC_MONTH']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_MONTH']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'Month','Total']
         month_dict = {'January':1,'February':2,'March':3, 'April':4, 'May':5, 'June':6, 'July':7, 
@@ -86,7 +87,7 @@ with tab2:
         st.plotly_chart(fig)
 
         st.subheader("Crime Category by Day of Week")
-        crimes_data = df_filtered[['MCI_CATEGORY','OCC_DOW']]
+        crimes_data = neighorhood_df[['MCI_CATEGORY','OCC_DOW']]
         dow_dict = {'Monday':1,'Tuesday':2,'Wednesday':3, 'Thursday':4, 'Friday':5, 'Saturday':6, 'Sunday':7}
         crimes_data = crimes_data[crimes_data['OCC_DOW'].isin(dow_dict)]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_DOW']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
@@ -97,7 +98,7 @@ with tab2:
 
         st.subheader("Crime by Hour & Day of Week")
 
-        crimes_data = df_filtered[['OCC_HOUR', 'OCC_DOW']]
+        crimes_data = neighorhood_df[['OCC_HOUR', 'OCC_DOW']]
         crimes_data = (
             crimes_data
             .groupby(['OCC_HOUR', 'OCC_DOW'])
@@ -129,7 +130,7 @@ with tab2:
 
     with col2:
         st.subheader("Crime Category by Day of the Month")
-        crimes_data = df_filtered[['MCI_CATEGORY','OCC_DAY']]
+        crimes_data = neighorhood_df[['MCI_CATEGORY','OCC_DAY']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_DAY']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'Day','Total']
         crimes_data.sort_values("Day", ascending=True)
@@ -137,7 +138,7 @@ with tab2:
         st.plotly_chart(fig)
 
         st.subheader("Crime Category by Hour")
-        crimes_data = df_filtered[['MCI_CATEGORY','OCC_HOUR']]
+        crimes_data = neighorhood_df[['MCI_CATEGORY','OCC_HOUR']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_HOUR']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'Hour','Total']
         crimes_data.sort_values("Hour", ascending=True)
@@ -145,7 +146,7 @@ with tab2:
         st.plotly_chart(fig)
 
         st.subheader("Crime Category by Premise Type")
-        crimes_data = df_filtered[['MCI_CATEGORY','PREMISES_TYPE']]
+        crimes_data = neighorhood_df[['MCI_CATEGORY','PREMISES_TYPE']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','PREMISES_TYPE']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'PREMISES TYPE','Total']
         # Pivot so MCI_CATEGORY is columns, PREMISES_TYPE is rows
