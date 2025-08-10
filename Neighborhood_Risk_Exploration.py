@@ -11,13 +11,23 @@ st.write("""
 
 tab1, tab2 = st.tabs(["Socio-Ecomonic Metrics", "Crime Risk Trends"])
 with tab1:
+    with st.sidebar:
+        neighourhood_options = st.selectbox('Neighbourhood',NEIGHBORHOOD)
+        year_options = st.multiselect('Year',YEAR,default=YEAR)
+        month_options = st.multiselect('Month',MONTH,default=MONTH)
+        dow_options = st.multiselect('Day of Week',DAY_OF_WEEK,default=DAY_OF_WEEK)
+        mci_options = st.multiselect('Crime Type',MCI_CATEGORY,default=MCI_CATEGORY)
+        premises_options = st.multiselect('Premises Type',PREMISES_TYPE,default=PREMISES_TYPE) 
+    
     st.subheader("Culture")
     col1, col2 = st.columns(2)
+    wellbeing_culture = wellbeing_culture[(wellbeing_culture['Neighbourhood'] == neighourhood_options)]
     col1.metric("Lingustic Diversity", round(statistics.median(wellbeing_culture['Linguistic Diversity Index']),2))
     col2.metric("Cultural Location Index", statistics.median(wellbeing_culture['Cultural Location Index']))
 
     st.subheader("Economics")
     col1, col2, col3, col4, col5 = st.columns(5)
+    wellbeing_economics = wellbeing_economics[(wellbeing_economics['Neighbourhood'] == neighourhood_options)]
     col1.metric("No. of Businessess",statistics.median(wellbeing_economics['Businesses']))
     col2.metric("Child Care Spaces",statistics.median(wellbeing_economics['Child Care Spaces']))
     col3.metric("Debt Risk Score",statistics.median(wellbeing_economics['Debt Risk Score']))
@@ -26,22 +36,18 @@ with tab1:
 
     st.subheader("Environment")
     col1, col2 = st.columns(2)
+    wellbeing_environment = wellbeing_environment[(wellbeing_environment['Neighbourhood'] == neighourhood_options)]
     col1.metric("No. of Green Rebate Programs",statistics.median(wellbeing_environment['Green Rebate Programs']))
     col2.metric("Green Spaces (Square Kilometres)", round(statistics.median(wellbeing_environment['Green Spaces']),2))
 
     st.subheader("Health")
     col1, col2 = st.columns(2)
+    wellbeing_health = wellbeing_health[(wellbeing_health['Neighbourhood'] == neighourhood_options)]
     col1.metric("No. of DineSafe Inspections",statistics.median(wellbeing_health["DineSafe Inspections"]))
     col2.metric("# of Health Providers",statistics.median(wellbeing_health['Health Providers']))
 
 with tab2:
-    with st.sidebar:
-        neighourhood_options = st.selectbox('Neighbourhood',NEIGHBORHOOD)
-        year_options = st.multiselect('Year',YEAR,default=YEAR)
-        month_options = st.multiselect('Month',MONTH,default=MONTH)
-        dow_options = st.multiselect('Day of Week',DAY_OF_WEEK,default=DAY_OF_WEEK)
-        mci_options = st.multiselect('Crime Type',MCI_CATEGORY,default=MCI_CATEGORY)
-        premises_options = st.multiselect('Premises Type',PREMISES_TYPE,default=PREMISES_TYPE) 
+
     with st.container():
         col1, col2, col3 = st.columns(3)
         neighorhood_df = df_filtered[(df_filtered['OCC_YEAR'].isin(year_options)) & (df_filtered['OCC_MONTH'].isin(month_options)) & (df_filtered['OCC_DOW'].isin(dow_options)) & (df_filtered['MCI_CATEGORY'].isin(mci_options)) & (df_filtered['PREMISES_TYPE'].isin(premises_options)) & (df_filtered['Neighborhood'] == neighourhood_options)]
