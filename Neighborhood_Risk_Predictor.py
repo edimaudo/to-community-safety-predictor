@@ -1,6 +1,7 @@
 from utils import *
 from data import *
-from config import *
+import config
+#from config import *
 
 st.title(APP_NAME)
 st.header(PREDICTON_HEADER)
@@ -12,7 +13,6 @@ with st.sidebar:
     premises_options = st.selectbox('Premises Type',PREMISES_TYPE)
     neighbourhood_options = st.selectbox('Neighborhood',NEIGHBORHOOD)
     clicked = st.button("Run Prediction")
-
 
 # Model information
 model_data = df_filtered[['OCC_MONTH','OCC_DOW','OCC_HOUR','PREMISES_TYPE','Neighborhood','MCI_CATEGORY']]
@@ -49,7 +49,6 @@ model_info.reset_index(drop=True, inplace=True)
 neighbourhood = model_info['Neighborhood_cat'][0]
 
 if clicked:
-    #st.subheader("Prediction")
     info_df = pd.DataFrame(columns = ['OCC_MONTH_cat','OCC_DOW_cat','OCC_HOUR','PREMISES_TYPE_cat','Neighborhood_cat'],index = ['a'])
     info_df.loc['a'] = [month,dow,hour, premise, neighbourhood]
     # Load model
@@ -67,11 +66,13 @@ if clicked:
         crime_output = 'Robbery'
     else:
         crime_output = 'Theft Over'
-    st.metric("The Predicted Crime Category is : ",crime_output)
-    st.subheader("Community Risk Insights + Actions")
+    st.write("The Predicted Crime Category is: " + crime_output)
     
-    st.write("Based on the crime category: " + crime_output + ' here are some safety recommendations for the community')
-    ## Add LLM here 
-
-
-
+    st.subheader("Community Action Steps")
+    
+    st.write("Based on the crime category: " + crime_output + ', here are some safety recommendations for the community')
+    prompt = " You are a community safety advisor. Based on the following crime" + str(crime_output) + " that occurred in " + str(premises_options) + " at " + str(hour_options) + " hours in " + str(neighbourhood_options) + " a neigbhorhood in Toronto, Ontario, " + "generate 3 practical safety recommendations for local residents."
+    
+    config.model.generate(prompt)
+    prompt_output = config.model.generate_text(prompt)
+    outcome_txt = st.text_area(label=" ",value=prompt_output,placeholder='')
